@@ -1,0 +1,639 @@
+@import "normalizez.scss"
+@import "resets.scss"
+
+// -------------------------
+// Variables
+// -------------------------
+$font-family: "MontserratT"
+$font-weight-regular: 400
+$font-weight-bold: 700
+$color-blue: #5290EA
+$color-orange: #F28B64
+$bg-light: #F0F0F0
+$card-grey: #E2E2E2
+$max-width: 1140px
+$shadow-default: 0 4px 4px rgba(0,0,0,0.25)
+$pill-radius: 9999px
+$container-padding-top: 16px
+
+// -------------------------
+// Mixins (helpers)
+// Use these to keep layout rules consistent and reduce duplication.
+// =container-layout
+//   -> Applies the standard container sizing and centering used across pages.
+// =center-flex($dir: row, $justify: flex-start, $align: stretch)
+//   -> Small helper to create common flex layouts. Pass $dir, $justify, $align.
+// =pill($bg, $color, $w, $h)
+//   -> Styles pill-shaped UI elements (buttons, icon wrappers). Optional width/height.
+// -------------------------
+
+=container-layout
+    // sets a centered wrapper with a fixed max width
+    position: relative
+    max-width: $max-width
+    margin: 0 auto
+
+=center-flex($dir: row, $justify: flex-start, $align: stretch)
+    // shorthand for common flexbox containers
+    display: flex
+    flex-direction: $dir
+    justify-content: $justify
+    align-items: $align
+
+// Small utility for pill buttons/icons
+=pill($bg: transparent, $color: inherit, $w: auto, $h: auto)
+    // $bg: background color
+    // $color: text/icon color
+    // $w, $h: optional explicit width/height
+    background: $bg
+    color: $color
+    border-radius: $pill-radius
+    @if $w != auto
+        width: $w
+    @if $h != auto
+        height: $h
+
+*
+    // reset box-sizing globally for predictable sizing
+    box-sizing: border-box
+
+// -------------------------
+// Font declarations
+// Load local font files used throughout the site. font-display: swap reduces FOIT.
+// -------------------------
+@font-face
+    font-family: $font-family
+    font-display: swap
+    src: url('../fonts/Montserrat-Regular.ttf')
+    font-weight: $font-weight-regular
+    font-style: normal
+
+@font-face
+    font-family: $font-family
+    font-display: swap
+    src: url('../fonts/Montserrat-SemiBold.ttf')
+    font-weight: $font-weight-bold
+    font-style: normal
+
+// Base document styles
+html
+    // set the page font and default weight
+    font-family: $font-family
+    font-weight: $font-weight-regular
+
+// -------------------------
+// Layout (organized by BEM: Block → Elements → Modifiers)
+// -------------------------
+
+// Primary container used on most pages
+.container
+    +container-layout
+
+// Navigation block (BEM: nav-menu)
+.nav-menu
+    &__list
+        +center-flex(row, flex-start, center)
+
+    // individual nav items
+    &__list-item
+        margin-right: 64px
+        font-size: 18px
+        font-weight: $font-weight-bold
+        &:last-child
+            margin-right: 0
+        a
+            text-decoration: none
+            color: black
+
+// First (hero) section wrapper (BEM: main-section)
+.main-section
+    position: relative
+    min-height: 800px
+    background: $bg-light
+    padding-top: $container-padding-top
+    overflow: hidden
+
+    // nav row inside hero
+    &__nav-container
+        +center-flex(row, space-between, center)
+        height: 69px
+
+    // logo sizing in the header
+    &__logo
+        height: 69px
+
+    // content area inside the hero (left image + right content)
+    &__content-container
+        position: relative
+        +center-flex(row, flex-start, stretch)
+
+    // decorative elipses positions (kept as-is to preserve layout)
+    &__first-elipse
+        position: absolute
+        top: 129px
+        right: 80px
+
+    &__second-elipse
+        position: absolute
+        right: -120px
+        top: 650px
+
+// Left column in the hero: image and stacked decorative shapes (BEM: left-wrapper)
+.left-wrapper
+    position: relative
+
+    // main hero image sits above decorative shapes
+    img
+        position: relative
+        z-index: 5
+
+    // decorative rounded rectangles (stacked)
+    &__rectangle-blue, &__rectangle-orange, &__rectangle-grey
+        position: absolute
+        height: 220px
+        border-radius: $pill-radius
+        box-shadow: $shadow-default
+        z-index: 1
+
+    &__rectangle-blue
+        top: 150px
+        left: -50px
+        width: 566px
+        background: $color-blue
+        transform: rotate(-64deg)
+        z-index: 2
+
+    &__rectangle-orange
+        left: -30px
+        top: 160px
+        width: 618px
+        background: $color-orange
+        transform: rotate(-50.81deg)
+        z-index: 3
+
+    &__rectangle-grey
+        left: 10px
+        top: 190px
+        width: 609px
+        background: $card-grey
+        transform: rotate(-36.15deg)
+        z-index: 1
+
+// Right column in the hero: social icons, title, and CTA (BEM: right-wrapper)
+.right-wrapper
+    width: 372px
+    position: absolute
+    top: 150px
+    right: 76px
+    z-index: 5
+
+    &__icons-box
+        margin-bottom: 1px
+        padding-left: 10px
+
+    &__title
+        margin-bottom: 5px
+
+    &__text
+        font-size: 16px
+        margin-bottom: 20px
+
+// Reusable inline icon group (social links) (BEM: icons)
+.icons
+    display: inline-flex
+
+    &__item
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 40px
+        height: 40px
+        border: 1px solid $color-blue
+        +pill(transparent)
+        margin-right: 17px
+        &:last-child
+            margin-right: 0
+        i
+            font-size: 21px
+
+// Small icon + stat block seen in second section (BEM: icons-item)
+.icons-item
+    display: inline-flex
+    align-items: center
+
+    &__img
+        margin-right: 20px
+        width: 80px
+
+    &__text
+        font-size: 18px
+        span
+            font-size: 48px
+            font-weight: $font-weight-bold
+
+// Generic title style used across sections (BEM: title)
+.title
+    font-size: 72px
+    position: relative
+    font-weight: $font-weight-bold
+
+    &__hr
+        width: 65px
+        position: absolute
+        bottom: 0
+        margin: 0
+        border: none
+        border-top: 1px solid black
+
+.title__hr_top
+    bottom: 75px
+
+// Button group used in hero and other areas (BEM: buttons)
+.buttons
+    display: inline-flex
+
+    &__main-btn
+        margin-right: 32px
+        width: 200px
+        height: 60px
+        +pill($color-orange, white, 200px, 60px)
+        box-shadow: $shadow-default
+        border: none
+        font-size: 18px
+        font-weight: $font-weight-bold
+
+    &__icon-btn
+        display: inline-flex
+        align-items: center
+        img
+            margin-right: 12px
+
+    &__text
+        font-size: 16px
+
+// Reusable elipse decorative component (BEM: elipse)
+.elipse
+    width: 194px
+    height: 194px
+    background: linear-gradient(144deg, rgba(237,123,80,.5) 15%, rgba(72,138,234,.5) 53%, rgba(44,44,44,.5) 86%)
+    border-radius: 50%
+    +center-flex(row, center, center)
+
+    &_big
+        width: 282px
+        height: 282px
+
+    &__subtract
+        // inner cutout used to create the ring effect
+        width: 129px
+        height: 129px
+        background: $bg-light
+        border-radius: 50%
+
+        &_big
+            width: 188px
+            height: 188px
+
+// helper class to force white background inside elipse subtractors
+.bg-second-section
+    background-color: white
+
+// Second (about-me / features) section (BEM: second-section)
+.second-section
+    overflow: hidden
+    min-height: 700px
+
+    &__container
+        padding-top: 32px
+        position: relative
+
+    &__title
+        margin-bottom: 40px
+
+    &__cards-box
+        display: inline-flex
+        justify-content: center
+        margin-bottom: 25px
+
+    &__cards-item
+        margin-right: 30px
+        &:last-child
+            margin-right: 0
+
+    &__icons-box
+        display: flex
+        justify-content: space-evenly
+
+    &__first-elipse
+        position: absolute
+        top: 40px
+        right: -80px
+        z-index: -1
+
+    &__second-elipse
+        position: absolute
+        top: 364px
+        left: -80px
+        z-index: -1
+
+// Card used in the second section (image + rotated title) (BEM: cards-item)
+.cards-item
+    position: relative
+    width: 360px
+    height: 360px
+    background: $card-grey
+    border-radius: 10px
+    display: flex
+    align-items: flex-end
+
+    &__img
+        height: 335px
+
+    &__text
+        width: 280px
+        font-size: 36px
+        text-align: center
+        transform: rotate(90deg)
+        position: absolute
+        top: 144px
+        right: -45px
+        font-weight: $font-weight-bold
+
+.cards-item_orange
+    background: $color-orange
+
+.cards-item_blue
+    background: $color-blue
+
+// Third section: content with left/right split and decorative figures (BEM: third-section)
+.third-section
+    position: relative
+    min-height: 640px
+    background: $bg-light
+    overflow: hidden
+    z-index: 0
+
+    &__container
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: space-between
+        padding-left: 167px
+        padding-top: 46px
+
+    &__right-wrapper
+        max-width: 480px
+
+    &__right-title
+        margin-bottom: 20px
+
+    &__text
+        font-size: 18px
+        margin-bottom: 30px
+
+    &__first-elipse
+        position: absolute
+        top: 140px
+        left: 110px
+        z-index: -1
+
+    &__figure
+        position: absolute
+        top: 249px
+        left: 15px
+        z-index: -1
+
+    &__second-elipse
+        position: absolute
+        right: -120px
+        top: -120px
+
+// Footer layout (call-to-action area) (BEM: footer)
+.footer
+    &__img
+        position: absolute
+        left: -250px
+        bottom: 0
+
+    &__container
+        min-height: 272px
+        display: flex
+        align-items: center
+        justify-content: flex-end
+
+    &__title
+        margin-bottom: 20px
+
+// -------------------------
+// Adaptive styles
+// -------------------------
+@media (max-width: 1199px)
+    // desktop -> large tablet adjustments
+    .container
+        max-width: 960px
+
+    .main-section
+        min-height: 690px
+
+    .left-wrapper
+        img
+            width: 750px
+
+        &__rectangle-blue
+            width: 500px
+            height: 200px
+
+        &__rectangle-orange
+            width: 550px
+            height: 200px
+
+        &__rectangle-grey
+            width: 500px
+            height: 200px
+
+    .right-wrapper
+        right: 20px
+
+    .main-section__first-elipse
+        right: 10px
+
+    .main-section__second-elipse
+        top: 560px
+
+@media (max-width: 991px)
+    // medium tablet adjustments
+    .container
+        max-width: 720px
+
+    .title
+        font-size: 60px
+
+    .left-wrapper
+        img
+            width: 550px
+
+        &__rectangle-blue
+            width: 380px
+            height: 130px
+
+        &__rectangle-orange
+            width: 410px
+            height: 130px
+
+        &__rectangle-grey
+            width: 380px
+            height: 130px
+
+    .right-wrapper
+        top: 75px
+        width: 300px
+
+        &__text
+            font-size: 14px
+            margin-bottom: 10px
+
+    .buttons
+        &__main-btn
+            font-size: 14px
+            margin-right: 10px
+            width: 160px
+            height: 50px
+
+        &__icon-btn
+            font-size: 14px
+
+@media (max-width: 767px)
+    // mobile layout adjustments
+    .container
+        max-width: 540px
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+
+    .nav-menu
+        position: fixed
+        top: 0
+        right: -100%
+        height: 100vh
+        width: 50%
+        background: $color-blue
+        z-index: 20
+        transition: 0.6s all
+
+        &__list
+            flex-direction: column
+            justify-content: space-evenly
+            align-items: center
+            height: 100%
+
+        &__list-item
+            margin-right: 0
+            font-size: 20px
+
+    .hamburger
+        width: 30px
+        position: fixed
+        top: 40px
+        right: 30px
+        height: 14px
+        z-index: 30
+
+        span
+            border-radius: 300px
+            height: 2px
+            width: 100%
+            display: block
+            background: black
+            transition: 1s all
+            margin-bottom: 4px
+            &:last-child
+                margin-bottom: 0
+
+    .nav-menu_active
+        right: 0
+
+    .title
+        font-size: 35px
+
+    .main-section
+        position: relative
+        min-height: 780px
+        padding-top: $container-padding-top
+
+        &__content-container
+            justify-content: center
+            align-items: center
+
+        &__first-elipse
+            top: -130px
+            right: -60px
+
+        &__second-elipse
+            right: -120px
+            top: 650px
+
+    .left-wrapper
+        margin-bottom: 2px
+        height: 380px
+        width: 100%
+
+    img
+        position: relative
+        z-index: 5
+
+    .icons
+        display: inline-flex
+        margin-right: 0
+
+    .title__hr
+        display: none
+        width: 100%
+
+    .buttons
+        justify-content: center
+
+    .right-wrapper
+        display: flex
+        flex-direction: column
+        position: relative
+        height: 200px
+        width: 100vw
+        padding-left: 15vw
+        z-index: 5
+
+        &__icons-box
+            padding-left: 0
+            margin-bottom: 3px
+            text-align: center
+
+        &__title
+            margin-bottom: 5px
+            text-align: center
+
+        &__hr
+            width: 100%
+
+        &__text
+            font-size: 16px
+            margin-bottom: 20px
+            text-align: center
+
+@media (max-width: 575px)
+    .container
+        max-width: 100%
+
+    .buttons
+        img
+            margin-right: 8px
+
+    .left-wrapper
+        img
+            padding-right: 40px
+
+    .third-section
+        min-height: 600px
+
+        &__text
+            width: 300px
+            font-size: 18px
