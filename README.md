@@ -2,7 +2,7 @@
 
 A clean hero section, service highlights and a clear call-to-action, hand-coded from scratch. Client details are changed to protect privacy.
 
-🔗 **Live demo:** https://pafuluofu.github.io/guitar-lessons-landing-page/
+🔗 **Live demo:** https://verno-dev-studio.github.io/guitar-lessons-landing-page/
 
 ## Built with
 - **HTML5**
