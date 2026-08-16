@@ -1,16 +1,33 @@
-# Guitar Lessons Landing Page
+# Guitar Lessons — Landing Page
 
-A clean hero section, service highlights and a clear call-to-action, hand-coded from scratch. Client details are changed to protect privacy.
+<p><a href="https://verno-dev-studio.github.io/guitar-lessons-landing-page/"><b>&#9654; Live demo</b></a> &nbsp;&middot;&nbsp; <a href="https://github.com/verno-dev-studio/guitar-lessons-landing-page">Source</a></p>
 
-🔗 **Live demo:** https://verno-dev-studio.github.io/guitar-lessons-landing-page/
+## Overview
 
-## Built with
-- **HTML5**
-- **CSS3**
-- **JavaScript**
+A landing page for a private guitar tutor: a bold hero with layered decorative shapes behind the instructor photo, a benefits section, lesson cards and clear calls to action. Authored in Sass with a component-oriented structure.
 
-## Run locally
-Open `index.html` in any modern browser — no build step required.
+## ✨ Features
+
+- Responsive down to mobile with an off-canvas hamburger menu
+- Layered, rotated decorative shapes behind the hero image
+- Benefits + lesson-format cards with icons
+- Primary/secondary CTAs and social links
+- Smooth in-page navigation
+- Built from a structured Sass codebase (variables, resets, partials)
+
+## 🛠️ Tech stack
+
+- **HTML5** — Semantic markup
+- **Sass (SCSS/indented)** — Variables, nesting and partials compiled to css/style.css
+- **JavaScript** — Mobile menu toggle and interactions
+
+## 🚀 Getting started
+
+No build step or dependencies. Clone the repo and open `index.html` in any modern browser, or serve the folder with a static server:
+
+```bash
+npx serve .
+```
 
 ---
-<sub>Portfolio project. Some client details changed to protect privacy.</sub>
+<sub>Portfolio demo.</sub>
