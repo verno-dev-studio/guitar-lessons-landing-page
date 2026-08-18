@@ -28,6 +28,3 @@ No build step or dependencies. Clone the repo and open `index.html` in any moder
 ```bash
 npx serve .
 ```
-
----
-<sub>Portfolio demo.</sub>
